@@ -1,5 +1,8 @@
 # MINI_SERV
 
+## test1.c -> brouillon pas compilable
+## test2.c -> test en cours
+
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
 ## Allowed functions: 
