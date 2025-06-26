@@ -30,6 +30,7 @@ typedef struct s_client
     socklen_t addrLen;
     char    *buffer;
     t_msg   *msgs;
+    char    *msg;
     struct s_client *next;
 }   t_client;
 
@@ -93,6 +94,8 @@ void    freeClients(t_client *clients)
             close(clients->fd);
         if (clients->buffer)
             free(clients->buffer);
+        if (clients->msg)
+            free(clients->msg);
         freeMsgs(clients->msgs);
         free(clients);
         clients = tmp;
@@ -119,6 +122,8 @@ void    freeClient(t_client *client, t_client **clients)
                 free(client->buffer);
             if (client->msgs)
                 freeMsgs(client->msgs);
+            if (client->msg)
+                free(client->msg);
             free(client);
             return ;
         }
@@ -168,6 +173,7 @@ int acceptClient(int server, fd_set *allFds, t_client **clients, int *maxFd, int
     new->id = *idClient;
     new->next = NULL;
     new->msgs = NULL;
+    new->msg = NULL;
     new->disconnect = 0;
     *idClient += 1;
     addClient(clients, new);
@@ -310,6 +316,8 @@ void    cleanClients(t_client **clients, fd_set *allFds)
             FD_CLR(tmp->fd, allFds);
             close(tmp->fd);
             freeMsgs(tmp->msgs);
+            if (tmp->msg)
+                free(tmp->msg);
             free(tmp);
             tmp = tmp2;
         }
@@ -324,7 +332,7 @@ void    cleanClients(t_client **clients, fd_set *allFds)
 int sendMsgs(t_client *client)
 {
     t_msg *msg = client->msgs;
-    while (msg)
+    while (msg && msg->text)
     {
         int len = (int)strlen(msg->text);
         ssize_t sent = send(client->fd, msg->text + msg->offset, len - msg->offset, 0);
@@ -343,6 +351,53 @@ int sendMsgs(t_client *client)
     return (1);
 }
 
+int extract_message(char **buf, char **msg)
+{
+	char	*newbuf;
+	int	i;
+
+	*msg = 0;
+	if (*buf == 0)
+		return (0);
+	i = 0;
+	while ((*buf)[i])
+	{
+		if ((*buf)[i] == '\n')
+		{
+			newbuf = calloc(1, sizeof(*newbuf) * (strlen(*buf + i + 1) + 1));
+			if (newbuf == 0)
+				return (-1);
+			strcpy(newbuf, *buf + i + 1);
+			*msg = *buf;
+			(*msg)[i + 1] = 0;
+			*buf = newbuf;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+char *str_join(char *buf, char *add)
+{
+	char	*newbuf;
+	int		len;
+
+	if (buf == 0)
+		len = 0;
+	else
+		len = strlen(buf);
+	newbuf = malloc(sizeof(*newbuf) * (len + strlen(add) + 1));
+	if (newbuf == 0)
+		return (0);
+	newbuf[0] = 0;
+	if (buf != 0)
+		strcat(newbuf, buf);
+	free(buf);
+	strcat(newbuf, add);
+	return (newbuf);
+}
+
 int handleClient(int fd, t_client **clients)
 {
     char buffer[1000];
@@ -359,6 +414,34 @@ int handleClient(int fd, t_client **clients)
             return (0);
         client->disconnect = 1;
         return (1);
+    }
+    buffer[read] = 0;
+    if (client->buffer)
+        client->buffer = str_join(client->buffer, buffer);
+    else
+        client->buffer = str_join(NULL, buffer);
+    if (!client->buffer)
+        return (0);
+    int run = 1;
+    while (run)
+    {
+        t_msg *msg = malloc(sizeof(t_msg));
+        if (!msg)
+            return (0);
+        run = extract_message(&client->buffer, &msg->text);
+        // if (run <= 0)
+            // freeMsgs(msg);
+        if (run == -1)
+            return (0);
+        msg->offset = 0;
+        msg->next = NULL;
+        t_client *tmp = *clients;
+        while (tmp)
+        {
+            if (tmp->id != client->id)
+                addMsg(&tmp->msgs, msg);
+            tmp = tmp->next;
+        }
     }
     return (1);
 }
