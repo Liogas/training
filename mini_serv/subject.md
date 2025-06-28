@@ -1,8 +1,9 @@
 # MINI_SERV
 
-## test1.c -> brouillon pas compilable
-## test2.c -> brouillon, connexion et deconnexion ok mais envoie de msg trop compliqué à implémenter
-## test3.c -> test en cours
+- test1.c -> brouillon pas compilable
+- test2.c -> brouillon, connexion et deconnexion ok mais envoie de msg trop compliqué à implémenter
+- test3.c -> brouillon, pas loin du but mais finalement encore trop loin
+- test4.c -> version fonctionnel, se servir de cette logique pour l'exam (pas d'utilisation de writefds, peut etre problématique)
 
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
