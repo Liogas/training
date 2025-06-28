@@ -1,7 +1,8 @@
 # MINI_SERV
 
 ## test1.c -> brouillon pas compilable
-## test2.c -> test en cours
+## test2.c -> brouillon, connexion et deconnexion ok mais envoie de msg trop compliqué à implémenter
+## test3.c -> test en cours
 
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
