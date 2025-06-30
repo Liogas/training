@@ -5,6 +5,8 @@
 - test3.c -> brouillon, pas loin du but mais finalement encore trop loin
 - test4.c -> version fonctionnel, se servir de cette logique pour l'exam (pas d'utilisation de writefds, peut etre problématique)
 
+- training1.c -> 1h15 mais quelques erreurs presentent lors de la compilation
+
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
 ## Allowed functions: 
