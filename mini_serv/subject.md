@@ -6,6 +6,7 @@
 - test4.c -> version fonctionnel, se servir de cette logique pour l'exam (pas d'utilisation de writefds, peut etre problématique)
 
 - training1.c -> 1h15 mais quelques erreurs presentent lors de la compilation
+- training2.c -> Depart : 11h30 - Fin : 12h52 - problemes leaks + oublie pour disconnect
 
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
