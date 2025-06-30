@@ -8,6 +8,7 @@
 - training1.c -> 1h15 mais quelques erreurs presentent lors de la compilation
 - training2.c -> Depart : 11h30 - Fin : 12h52 - problemes leaks + oublie pour disconnect
 - training3.c -> Depart : 13h30 - Fin : 14h25 - erreurs d'innatention (FD_SET avec readfds au lieu de allfds, ajout du message de depart au mauvais endroit)
+- training4.c -> Depart : 14h48 - Fin : 15h45 - petit oublie de readfds = allfds mais sinon parfait
 
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
