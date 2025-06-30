@@ -5,10 +5,15 @@
 - test3.c -> brouillon, pas loin du but mais finalement encore trop loin
 - test4.c -> version fonctionnel, se servir de cette logique pour l'exam (pas d'utilisation de writefds, peut etre problématique)
 
+30/06
 - training1.c -> 1h15 mais quelques erreurs presentent lors de la compilation
 - training2.c -> Depart : 11h30 - Fin : 12h52 - problemes leaks + oublie pour disconnect
 - training3.c -> Depart : 13h30 - Fin : 14h25 - erreurs d'innatention (FD_SET avec readfds au lieu de allfds, ajout du message de depart au mauvais endroit)
 - training4.c -> Depart : 14h48 - Fin : 15h45 - petit oublie de readfds = allfds mais sinon parfait
+- training5.c -> Depart : 16h04 - Fin : 16h56: - (OBJECTIF finir en 45 min a peu pres) -> 52min mais erreur de merde, FD_ISSET sur allfds au lieu de readfds
+
+31/06
+Objectif : avoir le temps de le faire 2 fois avant l'exam et le finir en 45min au deuxieme essai.
 
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
