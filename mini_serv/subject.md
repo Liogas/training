@@ -14,6 +14,7 @@
 
 31/06
 Objectif : avoir le temps de le faire 2 fois avant l'exam et le finir en 45min au deuxieme essai.
+- training6.c -> Depart : 8h25 - Fin : 9h15 - grosse erreur d'innatention qui a pris du temps a etre vu tmp->next = tmp au lieu de tmp->next = client lors de l'ajout d'un client dans la liste
 
 ## Assignment name  : mini_serv
 ## Expected files   : mini_serv.c
